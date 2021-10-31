@@ -21,6 +21,6 @@ stdin.on('data', data => {
   const dataSTR = data.toString().trim();
   if (dataSTR === 'exit') {
     stdout.write('Bye!');
-    process.exit(0);
+    process.exit();
   }
 });
