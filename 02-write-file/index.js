@@ -4,9 +4,7 @@ const path = require('path');
 
 stdout.write('Hello, write something below\n');
 
-stdin.on('data', data => {
-  stdout.write(data);
-    
+stdin.on('data', data => {    
   fs.appendFile(
     path.join(__dirname, 'text.txt'),
     data,
