@@ -13,7 +13,7 @@ fs.readdir(path.join(__dirname, 'secret-folder'), {withFileTypes: true}, (err,da
       
       if(stats.isFile()) {
         let fileName = file.split('.')[0];
-        let size = Math.round(stats.size * 0.01) + 'kb';
+        let size = Math.round(stats.size * 0.001) + 'kb';
         let ext = path.extname(file).slice(1);
         stdout.write('\n' + path.basename(fileName) + ' - ' + ext + ' - ' + size + '\n');
       }
