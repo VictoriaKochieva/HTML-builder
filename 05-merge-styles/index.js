@@ -1,9 +1,14 @@
 const path = require('path');
 const fs = require('fs');
+const { stdout } = require('process');
 const pathStyles = path.join(__dirname, 'styles');
 
-fs.open(path.join(__dirname, 'project-dist', 'bundle.css'), err => {
-  if(err) throw err;
+fs.access(path.join(__dirname, 'project-dist', 'bundle.css'), err => {
+  if(err) {
+    fs.open(path.join(__dirname, 'project-dist', 'bundle.css'), err => {
+      if(err) throw err;
+    });
+  }
 });
 
 const bundlePath = path.join(__dirname, 'project-dist', 'bundle.css');
@@ -21,11 +26,12 @@ fs.readdir(pathStyles, {withFyleTypes: true}, (err,data) => {
         if(err) throw err;
         let arr = [];
         arr.push(data.toString());
-
-        for(let i = 0; i < arr.length; i++) {
-          result.write(arr[i]);
-        }
+        
+        result.write(arr.toString());
+        // console.log(arr.toString());
       });
     }
   });  
+
+  stdout.write('Merged!');
 });
