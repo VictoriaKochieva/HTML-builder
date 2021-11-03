@@ -42,7 +42,7 @@ fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, da
     });
   });
 
-  stdout.write('HTML builded!');
+  stdout.write('Builded!\n');
 });
 
 //create builded styles
@@ -61,7 +61,56 @@ fs.readdir(path.join(__dirname, 'styles'), {withFileTypes: true}, (err, data) =>
       });
     }
   });
+});
 
-  stdout.write('Styles builded!\n');
+//copy assets 
 
+fs.readdir(path.join(__dirname, 'assets'),{withFileTypes: true}, (err, data) => {
+  if(err) throw err;
+  data.forEach (file => {
+   
+    console.log(file);
+    let filePathes = path.join(__dirname, 'assets', file.name);
+
+    copyAssets(filePathes);
+    // console.log(filePathes);
+    function copyAssets(value) {
+  
+      fs.stat(value, (err, stats) => {
+        if(err) throw err;
+
+        if(stats.isFile()) {
+          fs.readFile(value, (err,data) => {
+            if(err) throw err;
+            // console.log(data);
+
+            fs.writeFile(path.join(__dirname, 'project-dist','assets',file.name, path.basename(value)), data, err=> {
+              if(err) throw err;
+            });
+          });
+        } 
+  
+        if(stats.isDirectory()) {
+          console.log(path.basename(value));
+          
+          fs.mkdir(path.join(__dirname, 'project-dist', 'assets', path.basename(value)), {recursive:true},err => {
+            if(err) throw err;
+          });
+
+          let newDir = path.join(__dirname, 'assets', path.basename(value)); 
+
+          fs.readdir(newDir,{withFileTypes: true}, (err, data) => {
+            if(err) throw err;
+            data.forEach (file => {
+             
+              console.log(file);
+              let filePathes = path.join(__dirname, 'assets',path.basename(value), file.name);
+              console.log(filePathes);
+              copyAssets(filePathes);
+            });
+          });
+        }
+      });
+    }
+  });
 });
