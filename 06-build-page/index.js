@@ -69,7 +69,7 @@ fs.readdir(path.join(__dirname, 'assets'),{withFileTypes: true}, (err, data) => 
   if(err) throw err;
   data.forEach (file => {
    
-    console.log(file);
+    // console.log(file);
     let filePathes = path.join(__dirname, 'assets', file.name);
 
     copyAssets(filePathes);
