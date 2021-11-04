@@ -74,7 +74,7 @@ fs.readdir(path.join(__dirname, 'assets'),{withFileTypes: true}, (err, data) => 
             if(err) throw err;
             // console.log(data);
 
-            fs.writeFile(path.join(__dirname, 'project-dist','assets',file.name, path.basename(value)), data, err=> {
+            fs.WriteStream(path.join(__dirname, 'project-dist','assets',file.name, path.basename(value)), data, err=> {
               if(err) throw err;
             });
           });
