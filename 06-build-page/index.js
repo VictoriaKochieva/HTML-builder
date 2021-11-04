@@ -12,7 +12,7 @@ const htmlBuild = fs.createWriteStream(path.join(__dirname, 'project-dist', 'ind
 template.pipe(htmlBuild);
 
 //read HTML in project-dist and change el to tags content
-fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, data) => {
+fs.createReadStream(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, data) => {
   if(err) throw err;
   fs.readdir(path.join(__dirname, 'components'), (err, data2) => {
     if(err) throw err;
