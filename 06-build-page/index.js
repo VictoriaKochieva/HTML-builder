@@ -4,17 +4,21 @@ const { stdout } = require('process');
 
 fs.mkdir(path.join(__dirname, 'project-dist'),{recursive: true}, err=>{
   if(err) throw err;
-
-  stdout.write('Builded!\n');
 });
 
 const template = fs.createReadStream(path.join(__dirname, 'template.html'), 'utf-8');
-const htmlBuild = fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'));
+const htmlBuild = fs.createWriteStream(path.join(__dirname, 'project-dist', 'index.html'), err => {
+  if (err) {
+    fs.open(path.join(__dirname, 'project-dist', 'index.html'),err => {
+      if(err) throw err;
+    });
+  }
+});
 
 template.pipe(htmlBuild);
 
 //read HTML in project-dist and change el to tags content
-fs.createReadStream(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, data) => {
+fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, data) => {
   if(err) throw err;
   fs.readdir(path.join(__dirname, 'components'), (err, data2) => {
     if(err) throw err;
