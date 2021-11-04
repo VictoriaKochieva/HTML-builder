@@ -20,24 +20,47 @@ template.pipe(htmlBuild);
 //read HTML in project-dist and change el to tags content
 fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, data) => {
   if(err) throw err;
-  fs.readdir(path.join(__dirname, 'components'), (err, data2) => {
-    if(err) throw err;
-    
-    data2.forEach(fileHTML => {
-      fs.readFile(path.join(__dirname, 'components', fileHTML),'utf-8', (err, fileHTMLContent) => {  
-        fileHTMLContent = fileHTMLContent.toString();
-        let reg = new RegExp(`${'{{'+fileHTML.split('.')[0]+'}}'}`);
 
-        if(data.match(reg)){
-          data = data.replace(reg, fileHTMLContent);
-    
-          fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'),data,'utf-8', err => {
-            if (err) throw err;
-          });
-        }
-      });
+  fs.readFile(path.join(__dirname, 'components', 'articles.html'),'utf-8', (err, articlesContent) => {      
+    articlesContent = articlesContent.toString();     
+    data = data.replace('{{articles}}', articlesContent);
+
+    fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'),data,'utf-8', err => {
+      if (err) throw err;
     });
   });
+
+  fs.readFile(path.join(__dirname, 'components', 'header.html'),'utf-8', (err, headerContent) => {      
+    headerContent = headerContent.toString();    
+    data = data.replace('{{header}}', headerContent);
+
+    fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
+      if (err) throw err;
+    });
+  });
+
+  fs.readFile(path.join(__dirname, 'components', 'footer.html'),'utf-8', (err, footerContent) => {      
+    footerContent = footerContent.toString();    
+    data = data.replace('{{footer}}', footerContent);
+
+    fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
+      if (err) throw err;
+    });
+  });
+
+  fs.access(path.join(__dirname, 'components', 'about.html'), err => {
+    if(!err) {
+      fs.readFile(path.join(__dirname, 'components', 'about.html'),'utf-8', (err, footerContent) => {      
+        footerContent = footerContent.toString();    
+        data = data.replace('{{about}}', footerContent);
+    
+        fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
+          if (err) throw err;
+        });
+      });
+    }
+  });    
+
   stdout.write('Builded!\n');
 });
 
