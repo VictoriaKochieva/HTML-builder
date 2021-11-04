@@ -4,6 +4,8 @@ const { stdout } = require('process');
 
 fs.mkdir(path.join(__dirname, 'project-dist'),{recursive: true}, err=>{
   if(err) throw err;
+
+  stdout.write('Builded!\n');
 });
 
 const template = fs.createReadStream(path.join(__dirname, 'template.html'), 'utf-8');
