@@ -30,24 +30,6 @@ fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, da
           });
         }
       });
-    
-      // fs.readFile(path.join(__dirname, 'components', 'header.html'),'utf-8', (err, headerContent) => {      
-      //   headerContent = headerContent.toString();    
-      //   data = data.replace('{{header}}', headerContent);
-    
-      //   fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
-      //     if (err) throw err;
-      //   });
-      // });
-    
-      // fs.readFile(path.join(__dirname, 'components', 'footer.html'),'utf-8', (err, footerContent) => {      
-      //   footerContent = footerContent.toString();    
-      //   data = data.replace('{{footer}}', footerContent);
-        
-      //   fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
-      //     if (err) throw err;
-      //   });
-      // });
     });
   });
   stdout.write('Builded!\n');
