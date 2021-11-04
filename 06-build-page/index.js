@@ -50,9 +50,9 @@ fs.readFile(path.join(__dirname, 'project-dist', 'index.html'),'utf-8', (err, da
 
   fs.access(path.join(__dirname, 'components', 'about.html'), err => {
     if(!err) {
-      fs.readFile(path.join(__dirname, 'components', 'about.html'),'utf-8', (err, footerContent) => {      
-        footerContent = footerContent.toString();    
-        data = data.replace('{{about}}', footerContent);
+      fs.readFile(path.join(__dirname, 'components', 'about.html'),'utf-8', (err, aboutContent) => {      
+        aboutContent = aboutContent.toString();    
+        data = data.replace('{{about}}', aboutContent);
     
         fs.writeFile(path.join(__dirname, 'project-dist', 'index.html'), data,'utf-8', err => {
           if (err) throw err;
